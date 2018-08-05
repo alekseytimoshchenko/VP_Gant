@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+def libs = rootProject.ext.libraries
+def config = rootProject.ext.configuration
+
+android {
+    compileSdkVersion config.compileVersion
+    buildToolsVersion config.buildToolsVersion
+
+    defaultConfig {
+        applicationId config.applicationId
+        minSdkVersion config.minSdk
+        targetSdkVersion config.targetSdk
+        versionCode config.versionCode
+        versionName config.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Android
+    implementation "com.android.support:appcompat-v7:${libs.supportVersion}"
+    implementation "com.android.support.constraint:constraint-layout:${libs.constraint_layout}"
+    implementation "com.android.support:design:${libs.supportVersion}"
+
+    //ButterKnife
+    implementation "com.jakewharton:butterknife:${libs.butterknife}"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    annotationProcessor "com.jakewharton:butterknife-compiler:${libs.butterknife}"
+
+    //Lottie
+    implementation "com.airbnb.android:lottie:${libs.lottie}"
+
+    //RxJava2
+    implementation "io.reactivex.rxjava2:rxjava:${libs.rx2Java}"
+    implementation "io.reactivex.rxjava2:rxandroid:${libs.rx2Android}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${libs.rxBinding}"
+
+    //Diagram
+    implementation "com.github.PhilJay:MPAndroidChart:${libs.diagramChart}"
+
+    //Architecture Components
+    implementation "android.arch.lifecycle:extensions:${libs.components}"
+    annotationProcessor "android.arch.lifecycle:compiler:${libs.components}"
+
+    //Dependency Injection
+    implementation "com.google.dagger:dagger:${libs.daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${libs.daggerVersion}"
+
+    //Progress bar
+    implementation 'com.sasank.roundedhorizontalprogress:roundedhorizontalprogress:1.0.1'
+
+    //Test
+    testImplementation "junit:junit:4.12"
+    androidTestImplementation "com.android.support.test:runner:1.0.2"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
+}
